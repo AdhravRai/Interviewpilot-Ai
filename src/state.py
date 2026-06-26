@@ -9,9 +9,10 @@ class InterviewState(TypedDict):
     skills:list[str]
     projects:list[dict]
     technologies:list[str]
-    weak_areas: list[str]
+   
     candidate_role: str
     experience_level: str
+    weak_areas: list[str]
 
     interview_plan: dict[str,int]
     # Qustions

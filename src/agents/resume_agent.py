@@ -2,12 +2,15 @@ import sys
 from src.state import InterviewState
 from src.prompts.resume_prompt import RESUME_ANALYSIS_PROMPT
 from src.llm import llm
+from src.logger import logging
+from src.exceptions import CustomException
 
 def resume_agent(state:InterviewState):
     try:
      resume_text=state["resume_text"]
      prompt = f" Prompt : {RESUME_ANALYSIS_PROMPT}  Resume : {resume_text} "
      resume_llm =llm.with_structured_output(ResumeAnalysis)
+     logging.info("Extracting Resume")
      response=resume_llm.invoke(prompt)
      print(type(response))
      return {
