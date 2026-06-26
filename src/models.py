@@ -18,3 +18,10 @@ class TopicPlan(BaseModel):
 class InterviewPlanner(BaseModel):
     starting_difficulty:str
     interview_topics:list[TopicPlan]
+
+class InterviewQuestion(BaseModel):
+    topic:str
+    question:str
+    difficulty:str
+class QuestionGenerationResult(BaseModel):
+    questions: list[InterviewQuestion]

@@ -1,4 +1,5 @@
 from typing import TypedDict
+from src.models import InterviewQuestions,TopicPlan
 
 class InterviewState(TypedDict):
     """ 
@@ -14,9 +15,9 @@ class InterviewState(TypedDict):
     experience_level: str
     weak_areas: list[str]
 
-    interview_plan: dict[str,int]
+    interview_plan: list[TopicPlan]
     # Qustions
-    questions: list[str]
+    questions: list[InterviewQuestions]
 
     # Active interview
     current_question: str
