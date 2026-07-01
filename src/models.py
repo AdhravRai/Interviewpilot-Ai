@@ -25,3 +25,29 @@ class InterviewQuestion(BaseModel):
     difficulty:str
 class QuestionGenerationResult(BaseModel):
     questions: list[InterviewQuestion]
+
+class EvaluationResult(BaseModel):
+    score:int   
+    strengths:list[str]    
+    weaknesses:list[str]    
+    missing_concepts:list[str]    
+    feedback:str
+
+class InterviewHistoryEntry(BaseModel):
+    question: InterviewQuestion
+    answer: str
+    evaluation: EvaluationResult
+class DifficultyAdaptationResult(BaseModel):
+    difficulty_level:str
+    reasoning:str
+
+class FeedbackResult(BaseModel):
+    summary:str
+    strengths:list[str]
+    improvement_areas:list[str]
+    final_assessment:str
+class RoadmapItem(BaseModel):
+    topic: str
+    priority: str
+class RoadmapResult(BaseModel):
+    roadmap: list[RoadmapItem]
