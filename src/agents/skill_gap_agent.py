@@ -4,6 +4,7 @@ from src.prompts.skillgap_prompt import SKILL_GAP_PROMPT
 from src.logger import logging
 from src.exceptions import CustomException
 from src.models import SkillGapResult
+from src.state import InterviewState
 
 def skill_gap_agent(state:InterviewState):
     try:

@@ -51,3 +51,5 @@ class RoadmapItem(BaseModel):
     priority: str
 class RoadmapResult(BaseModel):
     roadmap: list[RoadmapItem]
+
+    

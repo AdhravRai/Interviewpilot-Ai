@@ -1,5 +1,5 @@
 from typing import TypedDict
-from src.models import InterviewQuestion,TopicPlan,EvaluationResult,FeedbackResult
+from src.models import InterviewQuestion,TopicPlan,EvaluationResult,FeedbackResult,InterviewHistoryEntry
 
 class InterviewState(TypedDict):
     """ 
@@ -18,7 +18,7 @@ class InterviewState(TypedDict):
     interview_plan: list[TopicPlan]
     # Qustions
     questions: list[InterviewQuestion]
-
+    
     # Active interview
     current_question: InterviewQuestion
     current_answer: str
