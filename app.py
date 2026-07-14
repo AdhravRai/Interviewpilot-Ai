@@ -1,67 +1,68 @@
-from src.graphs.graph import interview_graph
+import uuid
+
+from langgraph.types import Command
+
+from src.graph.graph import interview_graph
 from src.state import InterviewState
 
 
-def create_initial_state(resume_text: str) -> InterviewState:
-    """
-    Creates the initial shared state for the interview workflow.
-    """
+class InterviewApplication:
 
-    return InterviewState(
-        resume_text=resume_text,
+    def __init__(self):
+        self.graph = interview_graph
 
-        # Resume Analysis
-        candidate_role="",
-        skills=[],
-        projects=[],
-        technologies=[],
+    def start_interview(self, resume_path: str):
 
-        # Skill Gap
-        weak_areas=[],
+        config = {
+            "configurable": {
+                "thread_id": str(uuid.uuid4())
+            }
+        }
 
-        # Planning
-        interview_plan=[],
+        initial_state: InterviewState = {
+            "resume_path": resume_path,
+            "resume_text": "",
 
-        # Question Generation
-        questions=[],
+            "skills": [],
+            "projects": [],
+            "technologies": [],
 
-        # Interview
-        current_question=None,
-        current_answer="",
-        question_index=0,
+            "candidate_role": "",
+            "experience_level": "",
+            "weak_areas": [],
+            "interview_plan": [],
 
-        # Evaluation
-        evaluations=[],
-        interview_history=[],
-        current_score=0.0,
+            "questions": [],
 
-        # Difficulty
-        difficulty_level="Medium",
+            "current_question": None,
+            "current_answer": "",
+            "question_index": 0,
+    
+            "evaluations": [],
+            "current_score": 0,
 
-        # Feedback
-        feedback=None,
+        
+            "difficulty_level": "",
+            "feedback": None,
+            "roadmap": [],
 
-        # Roadmap
-        roadmap=None,
-    )
+            "interview_history": [],
+        }
 
+        state = self.graph.invoke(
+            initial_state,
+            config=config,
+        )
 
-def main():
+        return state, config
 
-    print("=" * 60)
-    print("InterviewPilot AI")
-    print("=" * 60)
+    def resume_interview(self, config, answer: str):
 
-    resume_text = input("\nPaste the resume text:\n\n")
+        state = self.graph.invoke(
+            Command(resume=answer),
+            config=config,
+        )
 
-    initial_state = create_initial_state(resume_text)
-
-    final_state = interview_graph.invoke(initial_state)
-
-    print("\nInterview completed.\n")
-
-    print(final_state)
-
-
-if __name__ == "__main__":
-    main()
+        return state
+    def start_interview(self, resume_path: str):
+        pass

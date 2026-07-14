@@ -10,6 +10,7 @@ from src.agents.feedback_agent import feedback_agent
 from src.agents.evaluation_agent import evaluation_agent
 from src.agents.diff_adaptation_agent import difficulty_adaptation_agent
 
+from langgraph.checkpoint.memory import MemorySaver
 
 from pathlib import Path
 
@@ -33,11 +34,8 @@ graph.add_edge("question_generator","interview")
 graph.add_edge("interview", "evaluation")
 graph.add_edge("evaluation", "difficulty_adaptation")
 
-def route_after_adaptation(state: InterviewState):
-    question_index = state["question_index"]
-    questions = state["questions"]
-
-    if question_index < len(questions):
+def route_after_adaptation(state: InterviewState) -> str:
+    if state["question_index"] < len(state["questions"]):
         return "interview"
 
     return "feedback"
@@ -52,13 +50,13 @@ graph.add_conditional_edges("difficulty_adaptation",
 graph.add_edge("feedback","roadmap")
 graph.add_edge("roadmap",END)
 
-interview_graph = graph.compile()
+memory=MemorySaver()
+interview_graph = graph.compile(checkpointer=memory)
 
 def save_graph():
     artifact_dir = Path("artifacts") / "graph"
     artifact_dir.mkdir(parents=True, exist_ok=True)
     png = interview_graph.get_graph().draw_mermaid_png()
-
     with open(artifact_dir / "interview_graph.png", "wb") as f:
         f.write(png)
 

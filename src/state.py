@@ -2,11 +2,8 @@ from typing import TypedDict
 from src.models import InterviewQuestion,TopicPlan,EvaluationResult,FeedbackResult,InterviewHistoryEntry
 
 class InterviewState(TypedDict):
-    """ 
-    A TypedDict representing the state of the application.
-    """
-    
-    resume_text:str # resume
+    resume_path:str
+    resume_text:str 
     skills:list[str]
     projects:list[dict]
     technologies:list[str]
@@ -16,11 +13,9 @@ class InterviewState(TypedDict):
     weak_areas: list[str]
 
     interview_plan: list[TopicPlan]
-    # Qustions
     questions: list[InterviewQuestion]
     
-    # Active interview
-    current_question: InterviewQuestion
+    current_question: Optional[InterviewQuestion]
     current_answer: str
     question_index: int
     
