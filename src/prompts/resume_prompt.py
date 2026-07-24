@@ -1,25 +1,25 @@
 RESUME_ANALYSIS_PROMPT = """
+You are an expert resume analyzer.
 
-You are a professional resume reviewer and extractor.
+Read the resume below and extract only the information explicitly mentioned.
 
-Your task is to read and analyze the resume provided. Do not invent or infer the data from your own .
+Return exactly this JSON structure:
 
-Use only the data provided in resume.
-
-Return a json object containing skills,technologies,projects,candidate role and experience
-Use this structure
-  {
+{{
     "skills": [],
     "technologies": [],
     "projects": [],
     "candidate_role": "",
     "experience_level": ""
-}
-If you dont find the any of the info ,keep it balnk or empty
+}}
 
-Return only Json
-No explanations.
-No markdown.
-No code fences.
+Rules:
+- Do not hallucinate.
+- Use only information present in the resume.
+- If information is missing, return an empty list or empty string.
+- Return ONLY valid JSON.
 
+Resume:
+
+{resume}
 """

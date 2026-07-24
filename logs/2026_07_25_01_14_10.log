@@ -1,0 +1,6 @@
+[ 2026-07-25 01:14:30,562 ] 27 root - INFO - Resume Agent Started
+[ 2026-07-25 01:14:30,564 ] 17 root - INFO - Reading resume from: C:\Users\Adhrav\AppData\Local\Temp\tmpdgcxl3gu.pdf
+[ 2026-07-25 01:14:32,128 ] 1025 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+[ 2026-07-25 01:16:36,502 ] 27 root - INFO - Resume Agent Started
+[ 2026-07-25 01:16:36,505 ] 17 root - INFO - Reading resume from: C:\Users\Adhrav\AppData\Local\Temp\tmp_wfx1e_4.pdf
+[ 2026-07-25 01:16:38,142 ] 1025 httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"

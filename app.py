@@ -1,18 +1,12 @@
 import uuid
-
 from langgraph.types import Command
-
-from src.graph.graph import interview_graph
+from src.graphs.graph import interview_graph
 from src.state import InterviewState
-
-
 class InterviewApplication:
-
     def __init__(self):
         self.graph = interview_graph
 
     def start_interview(self, resume_path: str):
-
         config = {
             "configurable": {
                 "thread_id": str(uuid.uuid4())
@@ -64,5 +58,16 @@ class InterviewApplication:
         )
 
         return state
-    def start_interview(self, resume_path: str):
-        pass
+    def stop_interview(self, config):
+        state = self.graph.update_state(
+            config,
+            {
+                "stop_requested": True
+            }
+        )
+        state = self.graph.invoke(
+            Command(resume=""),
+            config=config,
+        )
+    
+        return state

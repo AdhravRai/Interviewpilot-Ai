@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, Optional
 from src.models import InterviewQuestion,TopicPlan,EvaluationResult,FeedbackResult,InterviewHistoryEntry
 
 class InterviewState(TypedDict):
@@ -26,6 +26,7 @@ class InterviewState(TypedDict):
     feedback: FeedbackResult
     interview_history: list[InterviewHistoryEntry]
     roadmap: list[str]
+    stop_requested: bool
     
     
     

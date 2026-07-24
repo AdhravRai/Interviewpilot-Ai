@@ -10,8 +10,8 @@ from src.agents.feedback_agent import feedback_agent
 from src.agents.evaluation_agent import evaluation_agent
 from src.agents.diff_adaptation_agent import difficulty_adaptation_agent
 
-from langgraph.checkpoint.memory import MemorySaver
-
+from langgraph.checkpoint.sqlite import SqliteSaver
+import sqlite3
 from pathlib import Path
 
 graph=StateGraph(InterviewState)
@@ -35,13 +35,12 @@ graph.add_edge("interview", "evaluation")
 graph.add_edge("evaluation", "difficulty_adaptation")
 
 def route_after_adaptation(state: InterviewState) -> str:
+    if state["stop_requested"]:
+        return "feedback"
     if state["question_index"] < len(state["questions"]):
         return "interview"
-
     return "feedback"
-
-graph.add_conditional_edges("difficulty_adaptation",
-                             route_after_adaptation,
+graph.add_conditional_edges("difficulty_adaptation",route_after_adaptation,
     {
         "interview": "interview",
         "feedback": "feedback",
@@ -50,7 +49,11 @@ graph.add_conditional_edges("difficulty_adaptation",
 graph.add_edge("feedback","roadmap")
 graph.add_edge("roadmap",END)
 
-memory=MemorySaver()
+conn = sqlite3.connect(
+    "interviewpilot.db",
+    check_same_thread=False,
+)
+memory = SqliteSaver(conn)
 interview_graph = graph.compile(checkpointer=memory)
 
 def save_graph():
@@ -59,7 +62,6 @@ def save_graph():
     png = interview_graph.get_graph().draw_mermaid_png()
     with open(artifact_dir / "interview_graph.png", "wb") as f:
         f.write(png)
-
 
 
 if __name__ == "__main__":
