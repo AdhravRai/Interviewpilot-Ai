@@ -41,6 +41,7 @@ class InterviewApplication:
             "roadmap": [],
 
             "interview_history": [],
+            "stop_requested": False,
         }
 
         state = self.graph.invoke(
@@ -50,24 +51,11 @@ class InterviewApplication:
 
         return state, config
 
-    def resume_interview(self, config, answer: str):
+    def resume_interview(self, config, response: dict):
 
         state = self.graph.invoke(
-            Command(resume=answer),
+            Command(resume=response),
             config=config,
         )
 
-        return state
-    def stop_interview(self, config):
-        state = self.graph.update_state(
-            config,
-            {
-                "stop_requested": True
-            }
-        )
-        state = self.graph.invoke(
-            Command(resume=""),
-            config=config,
-        )
-    
         return state

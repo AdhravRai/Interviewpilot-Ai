@@ -13,7 +13,10 @@ def evaluation_agent(state:InterviewState):
         current_answer=state["current_answer"]
         question_index=state["question_index"]
         evaluations=state["evaluations"]
-        interview_history=state["interview_history"]       
+        interview_history=state["interview_history"]      
+        if state["stop_requested"]:
+            logging.info("Interview stopped by user. Skipping evaluation.")       
+            return {} 
 
         if current_question and current_answer and current_answer.strip() != "":
                     prompt =f"""Instructions :

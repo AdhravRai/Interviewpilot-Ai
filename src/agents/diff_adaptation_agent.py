@@ -11,7 +11,9 @@ structured_llm=llm.with_structured_output(DifficultyAdaptationResult)
 def difficulty_adaptation_agent(state:InterviewState):
     try:
         logging.info("Difficulty Adaptation Agent Started")
-
+        if state["stop_requested"]:
+            logging.info("Interview stopped. Skipping difficulty adaptation.")
+            return {}
         difficulty_level=state["difficulty_level"]
         history=state["interview_history"]
 
