@@ -421,7 +421,7 @@ Learning Roadmap
 **Adhrav Rai**
 
 - GitHub: https://github.com/AdhravRai
-- LinkedIn: *(Add your LinkedIn URL here)*
+- LinkedIn:(https://www.linkedin.com/in/adhrav-rai-8b2991327/)
 
 ---
 
